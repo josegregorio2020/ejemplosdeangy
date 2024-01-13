@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        .calculadora {
+            background-color: black;
+            color: blanchedalmond;
+            text-align: center;
+            width: 300px;
+            margin: 50px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .botones button {
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+        }
+
+        .resultados {
+            background-color: rgb(255, 0, 221);
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculadora">
+        <h1>Calculadora</h1>
+        <div class="resultados" id="resultado">0</div>
+        <div class="botones">
+            <button onclick="limpiar()"><h2>C</h2></button>
+            <button onclick="borrar()"><h2>←</h2></button>
+            <button onclick="agregarOperacion('/')"><h2>/</h2></button>
+            <button onclick="agregarNumero(7)"><h2>7</h2></button>
+            <button onclick="agregarNumero(8)"><h2>8</h2></button>
+            <button onclick="agregarNumero(9)"><h2>9</h2></button>
+            <button onclick="agregarOperacion('*')"><h2>*</h2></button>
+            <button onclick="agregarNumero(4)"><h2>4</h2></button>
+            <button onclick="agregarNumero(5)"><h2>5</h2></button>
+            <button onclick="agregarNumero(6)"><h2>6</h2></button>
+            <button onclick="agregarOperacion('-')"><h2>-</h2></button>
+            <button onclick="agregarNumero(1)"><h2>1</h2></button>
+            <button onclick="agregarNumero(2)"><h2>2</h2></button>
+            <button onclick="agregarNumero(3)"><h2>3</h2></button>
+            <button onclick="agregarOperacion('+')"><h2>+</h2></button>
+            <button onclick="agregarNumero(0)"><h2>0</h2></button>
+            <button onclick="agregarDecimal()"><h2>.</h2></button>
+            <button onclick="calcularResultado()"><h2>=</h2></button>
+        </div>
+    </div>
+
+    <script>
+        let operacionActual = '';
+        let resultado = 0;
+
+        function limpiar() {
+            operacionActual = '';
+            actualizarResultado();
+        }
+
+        function borrar() {
+            operacionActual = operacionActual.slice(0, -1);
+            actualizarResultado();
+        }
+
+        function agregarNumero(numero) {
+            operacionActual += numero;
+            actualizarResultado();
+        }
+
+        function agregarOperacion(operacion) {
+            operacionActual += ' ' + operacion + ' ';
+            actualizarResultado();
+        }
+
+        function agregarDecimal() {
+            if (!operacionActual.includes('.')) {
+                operacionActual += '.';
+                actualizarResultado();
+            }
+        }
+
+        function calcularResultado() {
+            try {
+                resultado = eval(operacionActual);
+                operacionActual = resultado.toString();
+                actualizarResultado();
+            } catch (error) {
+                resultado = 'Error';
+                actualizarResultado();
+            }
+        }
+
+        function actualizarResultado() {
+            const resultados = document.getElementById('resultado');
+            resultados.textContent = operacionActual;
+        }
+    </script>
+</body>
+
+</html>
